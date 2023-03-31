@@ -29,7 +29,7 @@ public class ColorService {
     //guardar un color
     public ResponseEntity<ColorEntity> guardar(ColorEntity colorEntity){
         //el objeto que pasen no tiene que tener id
-        if(colorEntity.getId()!=null){
+        if(colorEntity.getColorId()!=null){
             return ResponseEntity.badRequest().build();
         }
         ColorEntity result= colorRepository.save(colorEntity);
@@ -39,11 +39,11 @@ public class ColorService {
     //Actualizar un color
     public ResponseEntity<ColorEntity> actualizar(ColorEntity colorEntity){
         //se tiene que pasar un id
-        if(colorEntity.getId()==null){
+        if(colorEntity.getColorId()==null){
             return ResponseEntity.badRequest().build();
         }
         //el id que se paso tiene que existir en la base de datos
-        if(!colorRepository.existsById(colorEntity.getId())){
+        if(!colorRepository.existsById(colorEntity.getColorId())){
             return ResponseEntity.notFound().build();
         }
         ColorEntity result= colorRepository.save(colorEntity);
@@ -56,7 +56,7 @@ public class ColorService {
         if(!colorRepository.existsById(id)){
             return ResponseEntity.notFound().build();
         }
+        colorRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 }

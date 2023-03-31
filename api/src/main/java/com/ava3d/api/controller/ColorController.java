@@ -8,34 +8,35 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 @AllArgsConstructor
+@RequestMapping("/api/color")
 public class ColorController {
     ColorService colorService;
 
     //ver todos los colores
-    @GetMapping("/api/color")
+    @GetMapping
     public ResponseEntity<List<ColorEntity>> verColores(){
         return colorService.verTodos();
     }
     //ver un color
-    @GetMapping("/api/color/{id}")
-
-    public ResponseEntity<ColorEntity> verColor(@RequestParam Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<ColorEntity> verColor(@PathVariable Long id){
         return colorService.ver(id);
     }
     //crear un color
-    @PostMapping("/api/color")
+    @PostMapping
     public ResponseEntity<ColorEntity> guardarColor(@RequestBody ColorEntity colorEntity){
         return colorService.guardar(colorEntity);
     }
     //actualizar un color
-    @PutMapping("/api/color")
+    @PutMapping
     public ResponseEntity<ColorEntity> actualizarColor(@RequestBody ColorEntity colorEntity){
         return colorService.actualizar(colorEntity);
     }
     //borrar un color
-    @DeleteMapping("/api/color/{id}")
-    public ResponseEntity<ColorEntity> borrarColor(@RequestParam Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ColorEntity> borrarColor(@PathVariable Long id){
         return colorService.borrar(id);
     }
 

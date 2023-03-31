@@ -9,11 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "colores")
+@Table(name = "Color")
 public class ColorEntity {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "color_id")
+    private Long colorId;
     private String nombre;
     private String codigo;
+    private Boolean estado;
+
+
 }
