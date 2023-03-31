@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/material/color")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MaterialColorController {
     private MaterialColorService materialColorService;
     @GetMapping

@@ -1,8 +1,6 @@
 package com.ava3d.api.service;
 
-import com.ava3d.api.entity.ColorEntity;
 import com.ava3d.api.entity.MaterialColorEntity;
-import com.ava3d.api.entity.MaterialEntity;
 import com.ava3d.api.repository.ColorRepository;
 import com.ava3d.api.repository.MaterialColorRepository;
 import com.ava3d.api.repository.MaterialRepository;
@@ -52,7 +50,6 @@ public class MaterialColorService {
         MaterialColorEntity result= materialColorRepository.save(materialColorEntity);
         return ResponseEntity.ok(result);
     }
-
     public ResponseEntity<MaterialColorEntity> borrar(Long id){
         //el id que se paso tiene que existir en la base de datos
         if(!materialColorRepository.existsById(id)){
@@ -61,7 +58,4 @@ public class MaterialColorService {
         materialColorRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
 }
