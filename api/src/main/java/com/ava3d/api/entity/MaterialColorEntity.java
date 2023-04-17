@@ -1,10 +1,14 @@
 package com.ava3d.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,5 +32,9 @@ public class MaterialColorEntity {
     //@MapsId("colorId")
     @JoinColumn(name = "color_id")
     private ColorEntity colorEntity;
+
+    //@JsonManagedReference
+    //@OneToMany(mappedBy = "materialColorEntity")
+    //private List<ProductoEntity> productoEntities;
 
 }
