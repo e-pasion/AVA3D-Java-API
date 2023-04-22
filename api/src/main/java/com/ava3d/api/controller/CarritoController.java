@@ -14,8 +14,8 @@ public class CarritoController {
     private CarritoService carritoService;
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CarritoEntity> verCarrito(@PathVariable Long id){
-        return carritoService.ver(id);
+    @GetMapping
+    public ResponseEntity<CarritoEntity> verCarrito(@RequestHeader("Authorization") String token){
+        return carritoService.ver(token);
     }
 }

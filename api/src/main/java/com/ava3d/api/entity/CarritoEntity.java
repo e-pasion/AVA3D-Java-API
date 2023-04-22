@@ -1,5 +1,6 @@
 package com.ava3d.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,4 @@ public class CarritoEntity {
     @JsonManagedReference
     @OneToMany(mappedBy = "carritoEntity")
     private List<ProductoEntity> productoEntities;
-
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
-    private UsuarioEntity usuarioEntity;
 }

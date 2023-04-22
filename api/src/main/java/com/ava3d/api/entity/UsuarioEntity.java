@@ -1,5 +1,6 @@
 package com.ava3d.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "usuario")
 public class UsuarioEntity {
 
@@ -21,15 +23,8 @@ public class UsuarioEntity {
     private String nombre;
     private String password;
 
-    @OneToOne(mappedBy = "usuarioEntity", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "carrito_id")
     private CarritoEntity carritoEntity;
 
-    public UsuarioEntity(Long idUsuario, String email, String nombre, String password) {
-        this.idUsuario = idUsuario;
-        this.email = email;
-        this.nombre = nombre;
-        this.password = password;
-        this.carritoEntity = new CarritoEntity();
-        this.carritoEntity.setUsuarioEntity(this);
-    }
 }

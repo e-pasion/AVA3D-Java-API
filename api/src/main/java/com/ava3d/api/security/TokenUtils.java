@@ -46,4 +46,22 @@ public class TokenUtils {
             return null;
         }
     }
+
+    public static String getUserEmail(String token){
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(ACCESS_TOKEN_SECRET_.getBytes())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            String email= claims.getSubject();
+            return email;
+
+        }catch (JwtException e){
+            return null;
+        }
+    }
+
+
 }

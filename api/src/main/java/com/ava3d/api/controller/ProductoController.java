@@ -30,7 +30,7 @@ public class ProductoController {
         return productoService.ver(id);
     }
     @PostMapping
-    public ResponseEntity<ProductoEntity> guardarProducto(@RequestParam("img") MultipartFile img,@RequestParam("archivo") MultipartFile archivo, @RequestParam("json") String json ) {
+    public ResponseEntity<ProductoEntity> guardarProducto(@RequestHeader("Authorization") String token,@RequestParam("img") MultipartFile img,@RequestParam("archivo") MultipartFile archivo, @RequestParam("json") String json ) {
 
         // Convertir el JSON a un objeto ProductoEntity
         ObjectMapper mapper = new ObjectMapper();
@@ -42,7 +42,7 @@ public class ProductoController {
             return ResponseEntity.internalServerError().build();
         }
 
-        return productoService.guardar(img,archivo,productoEntity);
+        return productoService.guardar(img,archivo,productoEntity,token);
     }
 
     @PutMapping

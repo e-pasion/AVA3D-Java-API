@@ -1,7 +1,10 @@
 package com.ava3d.api.service;
 
 import com.ava3d.api.entity.ProductoEntity;
+import com.ava3d.api.entity.UsuarioEntity;
 import com.ava3d.api.repository.ProductoRepository;
+import com.ava3d.api.repository.UsuarioRepository;
+import com.ava3d.api.security.TokenUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -19,7 +22,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Component
 public class ProductoService {
-    private CarritoService carritoService;
+    private UsuarioRepository usuarioRepository;
     private ProductoRepository productoRepository;
     private FileService fileService;
 
@@ -37,7 +40,7 @@ public class ProductoService {
     }
 
     //guardar un producto
-    public ResponseEntity<ProductoEntity> guardar(MultipartFile img, MultipartFile stl, ProductoEntity productoEntity) {
+    public ResponseEntity<ProductoEntity> guardar(MultipartFile img, MultipartFile stl, ProductoEntity productoEntity,String token) {
 
 
         //el objeto que pasen no tiene que tener id
@@ -62,7 +65,10 @@ public class ProductoService {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
-        productoEntity.setCarritoEntity(carritoService.ver(1L).getBody());
+        String token2=token.replace("Bearer ","");
+        UsuarioEntity usuarioEntity= usuarioRepository.findOneByEmail(TokenUtils.getUserEmail(token2)).get();
+
+        productoEntity.setCarritoEntity(usuarioEntity.getCarritoEntity());
 
         ProductoEntity result= productoRepository.save(productoEntity);
         return ResponseEntity.ok(result);
