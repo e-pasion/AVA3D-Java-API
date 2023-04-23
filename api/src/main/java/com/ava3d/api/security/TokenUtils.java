@@ -16,13 +16,14 @@ public class TokenUtils {
     private final static String ACCESS_TOKEN_SECRET_="Vgy`hxHt_FHjQ4'>3PTX,P|8$unqWa'ImC_sXc&8/|Oj4k)h?:.@f|4qVxCv?c{";
     private final static Long ACCESS_TOKEN_VALIDITY_SECONDS_=86400L;
 
-    public static String createToken(String nombre,String email){
+    public static String createToken(String nombre,String email,Long id){
 
         Long expirationTime= ACCESS_TOKEN_VALIDITY_SECONDS_*1000;//se convierte a milisegundos
         Date expirationDate= new Date(System.currentTimeMillis()+expirationTime);
 
         Map<String,Object> extra= new HashMap<>();
         extra.put("nombre",nombre);
+        extra.put("ID",id);
 
         return Jwts.builder()
                 .setSubject(email)
@@ -56,7 +57,25 @@ public class TokenUtils {
                     .getBody();
 
             String email= claims.getSubject();
+            System.out.println("El email es: "+email);
             return email;
+
+        }catch (JwtException e){
+            return null;
+        }
+    }
+
+    public static Long getUserId(String token){
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(ACCESS_TOKEN_SECRET_.getBytes())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            Long ID= (Long) claims.get("ID");
+            System.out.println(ID);
+            return ID;
 
         }catch (JwtException e){
             return null;

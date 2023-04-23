@@ -21,6 +21,7 @@ public class UserDetailsImpl implements UserDetails {
         return usuarioEntity.getPassword();
     }
 
+    public Long getId(){return usuarioEntity.getIdUsuario();}
     @Override
     public String getUsername() {
         return usuarioEntity.getEmail();
