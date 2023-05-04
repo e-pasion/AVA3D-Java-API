@@ -30,6 +30,7 @@ public class ProductoEntity {
     private String filePath;
     private Float peso;
     private String estado;
+    private Integer cantidad;
 
     private Float tamX;
     private Float tamY;
